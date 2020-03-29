@@ -73,8 +73,8 @@ var listarGuate = function (dataApi) {
 			options: {
 			legend: { display: false },
 			title: {
-				display: true,
-				text: 'Casos de COVID-19 en Guatemala'
+				display: false,
+				text: 'Cantidad de casos de covid-19 en Guatemala'
 			}
 			}
 		});
