@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+  <title>Covid-19 - Guatemala</title>
+  <link rel="icon" href="public/assets/img/logo/logo.svg" sizes="30x30">
+
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="public/vendor/materialize/css/materialize.min.css">
+
+  <!-- Custom CSS -->
+  <link type="text/css" rel="stylesheet" href="public/assets/css/custom.css">
+
+  <!-- Materialize Icons -->
+  <link type="text/css" rel="stylesheet" href="public/vendor/materialize/icons/icons.css">
+
+  <!-- Animate CSS -->
+  <link rel="stylesheet" href="public/vendor/animatecss/animate.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:100,400,700&display=swap" rel="stylesheet">
+
+  <!-- Datatables -->
+  <link rel="stylesheet" href="public/vendor/jquery/datatables/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="public/vendor/jquery/datatables/responsive.dataTables.min.css">
+  <link rel="stylesheet" href="public/vendor/jquery/datatables/fixedHeader.dataTables.min.css">
+
+  <!-- CSS Personalizado DIRECTORIO -->
+  <link type="text/css" rel="stylesheet" href="public/assets/css/custom.css">
+
+</head>
+
+<body>
+
+  <div class="center" id="circulo">
+    <div class="progress blue lighten-4" style="margin-top:0px;">
+        <div class="indeterminate blue darken-4" style="width: 100%"></div>
+    </div>    
+  </div>
+
+  <div class="container">
+    <div class="row">
+
+        <h3>COVID-19</h3>
+        <p>Estadísticas e información en Guatemala y otros países</p>
+
+        <blockquote style="border-left: solid 5px #0D47A1;">
+            Puedes ver estadísticas en tiempo real del Covid-19 en Guatemala,
+            <br>
+            ingresar un país en el filtro o descargar los informes oficiales.
+        </blockquote>
+
+        <div class="section">
+            <h4>Mi guate</h4>
+            <table id="table_guate" class="responsive-table striped">
+              <thead style="border: none !important; text-align: left;">
+                <th></th>
+                <th>Nuevos</th>
+                <th>Activos</th>
+                <th>Críticos</th>
+                <th>Recuperados</th>
+                <th>Total</th>
+              </thead>
+              <tbody id="contenido">
+              </tbody>
+            </table>
+        </div>
+
+        <div class="collection">
+          <a style="text-decoration: underline; font-style: italic;" href="public/files/DocumentoDelDia.pdf" target="_blank" class="collection-item grey-text text-darken-4">Posibles escenarios de covid-19 en Guate</a>
+          <a style="text-decoration: underline; font-style: italic;" href="public/files/EscenariosGuate.pdf" target="_blank" class="collection-item grey-text text-darken-4">Informe escrito al 29 de Marzo, Guate</a>
+          <a style="text-decoration: underline; font-style: italic;" href="https://experience.arcgis.com/experience/685d0ace521648f8a5beeeee1b9125cd" target="_blank" class="collection-item grey-text text-darken-4">Dashboard de situación mundial OMS</a>
+          <a style="text-decoration: underline; font-style: italic;" href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/situation-reports" target="_blank" class="collection-item grey-text text-darken-4">Reportes por país OMS</a>
+          <a style="text-decoration: underline; font-style: italic;" href="javascript:void(0)" class="collection-item grey-text text-darken-4">WhatsApp de la OMS +41 79 893 18 92</a>
+        </div>
+
+        <!-- Otros paises -->
+        <div class="section">
+            <h4>Países</h4>
+            <table id="table_paises" class="display responsive nowrap" style="width:100%">
+            </table>
+        </div>
+  
+        <!-- CONTACT -->
+        <div class="fixed-action-btn animated bounceInRight">
+          <a class="btn-floating btn-large waves-effect waves-light blue darken-4">
+              <i class="large material-icons white-text">add</i>
+          </a>
+          <ul>
+              <li>
+                <a class="btn-floating blue darken-4" target="_blank" href="https://www.instagram.com/saravia.marlon/">
+                    <i class="fab fa-instagram white-text"></i>
+                </a>
+              </li>
+              <li>
+                  <a class="btn-floating blue darken-4" target="_blank" href="https://www.linkedin.com/in/marlon-saravia-4a349b171/">
+                    <i class="fab fa-linkedin white-text"></i>
+                  </a>
+              </li>
+              <li>
+                <a class="btn-floating blue darken-4" target="_blank" href="https://marlons0707.github.io/">
+                    <i class="material-icons white-text">code</i>
+                </a>
+            </li>
+          </ul>
+        </div>
+
+    </div>
+  </div>
+
+  <!-- jQuery -->
+  <script type="text/javascript" src="public/vendor/jquery/jquery-2.1.1.min.js"></script>
+
+  <!-- Efecto scroll -->
+  <script src="public/vendor/jquery/scrollreveal/scrollreveal.js"></script>
+
+  <!-- Materialize CSS  -->
+  <script type="text/javascript" src="public/vendor/materialize/js/materialize.min.js"></script>
+
+  <!-- Efectos JS para materialize -->
+  <script type="text/javascript" src="public/assets/js/materializeEffects.js"></script>
+
+  <!-- DATATABLES -->
+  <script src="public/vendor/jquery/datatables/jquery.dataTables.min.js"></script>
+  <script src="public/vendor/jquery/datatables/dataTables.fixedHeader.min.js"></script>
+  <script src="public/vendor/jquery/datatables/dataTables.responsive.min.js"></script>
+
+  
+  <script src="public/vendor/jquery/datatables/dataTables.buttons.min.js"></script>
+  <script src="public/vendor/jquery/datatables/buttons.html5.min.js"></script>
+  <script src="public/vendor/jquery/datatables/jszip.min.js"></script>
+  <script src="public/vendor/jquery/datatables/pdfmake.min.js"></script>
+  <script src="public/vendor/jquery/datatables/vfs_fonts.js"></script> 
+
+  <!-- Fontawesome Icons -->
+  <script async src="public/vendor/fontawesome/fawesome.js"></script>
+
+  <script src="public/assets/js/api_covid19.js"></script>
+
+  <script>
+    window.addEventListener('load', () => {
+        setTimeout(carga, 2000);
+
+        function carga() {
+            document.getElementById('circulo').className = 'hide';
+            document.getElementById('contenido').className = ''; // animated bounceIn animated fadeInLeftBig
+            //si encuentra contenido le quita la clase hide 
+        }
+    })
+</script>
+
+</body>
+
+</html>

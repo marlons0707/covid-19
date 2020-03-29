@@ -1,0 +1,49 @@
+/* Font */
+
+body {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  color: #696960 !important;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+}
+
+p {
+  font-size: 14px !important;
+}
+
+.exp_year {
+  font-size: 12px !important;
+  font-style: italic;
+}
+
+.title_card {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+}
+
+.mail_card {
+  font-size: 13px !important;
+  color: #AD8547 !important;
+}
+
+.links_proyects {
+  font-size: 14px !important;
+  color: #AD8547 !important;
+}
+
+/* List Skills */
+
+.list_horizontal li {
+  display: inline;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+/* Animate */
+.animate_icon {
+  -webkit-animation-iteration-count: infinite;
+}

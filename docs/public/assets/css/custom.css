@@ -1,0 +1,49 @@
+
+/* ESTILOS A NIVEL GLOBAL A TABLAS */
+table {
+  border: none !important;
+}
+
+td {
+  padding: 5px 5px;
+  text-align: left;
+  border: none !important;
+}
+
+th {
+  padding: 5px 10px;
+  text-align: left;
+  color: #585757 !important;
+  border: none !important;
+}
+
+.bIcons {
+  padding: 5px 5px 35px 5px;
+  font-size: 2rem;
+}
+
+i:hover {
+  cursor: pointer;
+}
+/* FIN A ESTILOS A NIVEL GLOBAL A TABLAS */
+
+.style_class {
+  font-weight: bold;
+}
+
+/* Font */
+
+body {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  color: #696960 !important;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+}
+
+p {
+  font-size: 14px !important;
+}
