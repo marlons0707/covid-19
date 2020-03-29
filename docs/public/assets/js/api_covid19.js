@@ -32,20 +32,21 @@ window.addEventListener('load', () => {
 var contenido = document.querySelector('#contenido');
 
 var listarGuate = function (dataApi) {
-	console.log(dataApi);
+	// console.log(dataApi);
 
 	// console.log(datos);
 	contenido.innerHTML = '';
 
 	for(let valor of dataApi) {
-		console.log(valor.country);
+		// console.log(valor.country);
 		contenido.innerHTML += `
 			<tr>
 				<th scope="row">${ valor.country }</th>
 				<td>${ valor.cases.new }</td>
 				<td>${ valor.cases.active }</td>
-				<td>${ valor.cases.critical }</td>
 				<td>${ valor.cases.recovered }</td>
+				<td>${ valor.cases.critical }</td>
+				<td>${ valor.deaths.total }</td>
 				<td>${ valor.cases.total }</td>
 			</tr>
 		`
@@ -54,16 +55,17 @@ var listarGuate = function (dataApi) {
 		new Chart(document.getElementById("bar-chart"), {
 			type: 'bar',
 			data: {
-			labels: ["Nuevos", "Activos", "Críticos", "Recuperados"],
+			labels: ["Nuevos", "Activos", "Recuperados", "Críticos", "Muertes"],
 			datasets: [
 				{
 					label: "Número de casos",
-					backgroundColor: ["#ffee58", "#546e7a","#d32f2f","#4caf50"],
+					backgroundColor: ["#ffee58", "#546e7a", "#4caf50", "#d32f2f", "#000000"],
 					data: [
 						valor.cases.new,
 						valor.cases.active,
+						valor.cases.recovered,
 						valor.cases.critical,
-						valor.cases.recovered
+						valor.deaths.total
 					]
 				}
 			]
@@ -95,7 +97,7 @@ var listarPaises = function(dataApi) {
 			"headerOffset": $('#fixed').height()
 		},
 
-		"order": [[ 5, "desc" ]],
+		"order": [[ 1, "desc" ]],
 
 		data: dataApi,
         "columns": [
@@ -107,11 +109,12 @@ var listarPaises = function(dataApi) {
 				},
 				className: 'style_class' 
 			},
+			{ title: "Total", data: "cases.total" },
 			{ title: "Nuevos", data: "cases.new" },
 			{ title: "Activos", data: "cases.active" },
-			{ title: "Críticos", data: "cases.critical" },
 			{ title: "Recuperados", data: "cases.recovered" },
-			{ title: "Total", data: "cases.total" }
+			{ title: "Críticos", data: "cases.critical" },
+			{ title: "Muertes", data: "deaths.total" }
 		],
 		
 		"lengthMenu": [
