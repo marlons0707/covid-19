@@ -49,6 +49,34 @@ var listarGuate = function (dataApi) {
 				<td>${ valor.cases.total }</td>
 			</tr>
 		`
+
+		// Bar chart
+		new Chart(document.getElementById("bar-chart"), {
+			type: 'bar',
+			data: {
+			labels: ["Nuevos", "Activos", "Críticos", "Recuperados"],
+			datasets: [
+				{
+					label: "Número de casos",
+					backgroundColor: ["#ffee58", "#546e7a","#d32f2f","#4caf50"],
+					data: [
+						valor.cases.new,
+						valor.cases.active,
+						valor.cases.critical,
+						valor.cases.recovered
+					]
+				}
+			]
+			},
+			options: {
+			legend: { display: false },
+			title: {
+				display: true,
+				text: 'Casos de COVID-19 en Guatemala'
+			}
+			}
+		});
+
 	}
 
 }
@@ -119,3 +147,5 @@ var idioma_espanol = {
 		"sPrevious": "Anterior"
 	}
 }
+
+
