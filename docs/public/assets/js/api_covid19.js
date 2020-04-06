@@ -1,4 +1,3 @@
-
 window.addEventListener('load', () => {
 	
 	// Traemos información de los países, sin filtro
@@ -13,6 +12,9 @@ window.addEventListener('load', () => {
 	.then(datos => {
 		listarPaises(datos.response);
 	})
+	.catch(err => {
+		console.log('Error paises: '+err);
+	});
 
 	// Traemos información de Guatemala
 	fetch("https://covid-193.p.rapidapi.com/statistics?country=Guatemala", {
@@ -24,58 +26,78 @@ window.addEventListener('load', () => {
 	})
 	.then(res => res.json())
 	.then(datos => {
-		listarGuate(datos.response);
+		listarGuateStats(datos.response);
 	})
+	.catch(err => {
+		console.log('Error Guatemala Stats: '+err);
+	});
+
+	//Traemos información histórica de Guatemala
+	fetch("https://covid-193.p.rapidapi.com/history?country=Guatemala", {
+		"method": "GET",
+		"headers": {
+			"x-rapidapi-host": "covid-193.p.rapidapi.com",
+			"x-rapidapi-key": "487e9c6602mshfe0920390d958dep11c592jsn3c1ead90861d"
+		}
+	})
+	.then(res => res.json())
+	.then(datos => {
+		listarGuateHist(datos.response);
+	})
+	.catch(err => {
+		console.log('Error Guatemala Hist: '+err);
+	});
 
 })
 
 var contenido = document.querySelector('#contenido');
 
-var listarGuate = function (dataApi) {
-	// console.log(dataApi);
+var listarGuateStats = function (dataApi) {
 
-	// console.log(datos);
+	// console.log(dataApi);
+	
 	contenido.innerHTML = '';
 
 	for(let valor of dataApi) {
-		// console.log(valor.country);
 		contenido.innerHTML += `
 			<tr>
 				<th scope="row">${ valor.country }</th>
-				<td>${ valor.cases.new }</td>
+				<td>${ (valor.cases.new == null) ? '0' : valor.cases.new }</td>
 				<td>${ valor.cases.active }</td>
 				<td>${ valor.cases.recovered }</td>
 				<td>${ valor.cases.critical }</td>
 				<td>${ valor.deaths.total }</td>
 				<td>${ valor.cases.total }</td>
+				<td>${ valor.tests.total }</td>
+				
 			</tr>
 		`
-
+		
 		// Bar chart
 		new Chart(document.getElementById("bar-chart"), {
 			type: 'bar',
 			data: {
-			labels: ["Nuevos", "Activos", "Recuperados", "Críticos", "Muertes"],
-			datasets: [
-				{
-					label: "Número de casos",
-					backgroundColor: ["#ffee58", "#546e7a", "#4caf50", "#d32f2f", "#000000"],
-					data: [
-						valor.cases.new,
-						valor.cases.active,
-						valor.cases.recovered,
-						valor.cases.critical,
-						valor.deaths.total
-					]
-				}
-			]
+				labels: ["Nuevos", "Activos", "Recuperados", "Críticos", "Muertes"],
+				datasets: [
+					{
+						label: "Número de casos",
+						backgroundColor: ["#ffee58", "#546e7a", "#4caf50", "#d32f2f", "#000000"],
+						data: [
+							valor.cases.new,
+							valor.cases.active,
+							valor.cases.recovered,
+							valor.cases.critical,
+							valor.deaths.total
+						]
+					}
+				]
 			},
 			options: {
-			legend: { display: false },
-			title: {
-				display: false,
-				text: 'Cantidad de casos de covid-19 en Guatemala'
-			}
+				legend: { display: false },
+				title: {
+					display: false,
+					text: 'Cantidad de casos de covid-19 en Guatemala'
+				}
 			}
 		});
 
@@ -83,11 +105,101 @@ var listarGuate = function (dataApi) {
 
 }
 
-var reloadTable = function() {
-	$('#table_paises').DataTable().ajax.reload();
+var listarGuateHist = function (dataApi) {
+	// console.log(dataApi);
+	var fechas = [];
+	var nuevos = [];
+	var activos = [];
+	var recuperados = [];
+	var criticos = [];
+	var muertes = [];
+
+	for(let valor of dataApi) {
+		// console.log(valor);
+		fechas.push(valor.day.substr(5));
+
+		let news = (valor.cases.new == null) ? '+0' : valor.cases.new;
+		nuevos.push(parseInt(news.substr(1)));
+
+		let actives = (valor.cases.active == null) ? 0 : valor.cases.active;
+		activos.push(actives);
+		
+		let recovers = (valor.cases.recovered == null) ? 0 : valor.cases.recovered;
+		recuperados.push(recovers);
+		
+		let criticals = (valor.cases.critical == null) ? 0 : valor.cases.critical;
+		criticos.push(criticals);
+
+		let deaths = (valor.deaths.total == null) ? 0 : valor.deaths.total;
+		muertes.push(deaths);
+
+	}
+
+	fechas.reverse();
+	nuevos.reverse();
+	activos.reverse();
+	recuperados.reverse();
+	criticos.reverse();
+	muertes.reverse();
+
+	new Chart(document.getElementById("line-chart"), {
+		type: 'line',
+		data: {
+			labels: fechas,
+			datasets: [
+				{
+					data: nuevos,
+					label: "Nuevos",
+					borderColor: "#ffee58",
+					fill: false
+				},
+				{ 
+					data: activos,
+					label: "Activos",
+					borderColor: "#546e7a",
+					fill: false
+				},
+				{
+					data: recuperados,
+					label: "Recuperados",
+					borderColor: "#4caf50",
+					fill: false
+				},
+				{ 
+					data: criticos,
+					label: "Críticos",
+					borderColor: "#d32f2f",
+					fill: false
+				},
+				{ 
+					data: muertes,
+					label: "Muertes",
+					borderColor: "#000000",
+					fill: false
+				}
+			]
+		},
+		options: {
+			title: {
+				display: true,
+				text: 'Avance de COVID-19 en Guatemala'
+			}
+		}
+	});
+
 }
 
 var listarPaises = function(dataApi) {
+	
+	let i=0;
+	for(dato of dataApi) {
+		country = dataApi[i].country; 
+		if (country == 'World') {
+			// console.log('lo encontre en '+i);
+			dataApi.splice(i,i);
+		}
+		i++;
+	}
 
 	table = $("#table_paises").DataTable({
 		"destroy": true,
@@ -105,7 +217,7 @@ var listarPaises = function(dataApi) {
 			{
 				title: "",
 				render: function(data,type, row, meta) {
-					return (row.country == 'All') ? 'Todos' : row.country; 
+					return (row.country == 'All' || row.country == 'World') ? 'Todos' : row.country; 
 				},
 				className: 'style_class' 
 			},
@@ -128,6 +240,10 @@ var listarPaises = function(dataApi) {
 	
 	$("select").formSelect();
 	
+}
+
+var reloadTable = function() {
+	$('#table_paises').DataTable().ajax.reload();
 }
 
 var idioma_espanol = {
