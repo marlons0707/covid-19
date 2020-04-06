@@ -182,7 +182,7 @@ var listarGuateHist = function (dataApi) {
 		options: {
 			title: {
 				display: true,
-				text: 'Avance de COVID-19 en Guatemala'
+				text: 'Avance de COVID-19'
 			}
 		}
 	});
